@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { TARGETS, fmtDuration, type Agent, type CoachingKind, type FloorEvent, type Kpis } from './sim/engine'
 import { SCENARIOS, type Scenario } from './sim/scenarios'
 import { SCENARIOS_TR } from './sim/scenarios.tr'
-import { TR } from './i18n.tr'
+import { NAMES_TR, TR } from './i18n.tr'
 import { useUi, type Lang } from './store'
 
 // English text is the key. `t('Calls waiting')` returns the Turkish string when the language is Turkish
@@ -76,6 +76,8 @@ export function makeI18n(lang: Lang) {
   // Turkish writes the percent sign before the number.
   const pct = (v: number, digits = 0) => (lang === 'tr' ? `%${dec(v, digits)}` : `${dec(v, digits)}%`)
   const scenario = (ref: Scenario | string) => localScenario(lang, ref)
+  /** Agents and team leaders have Turkish names when the app is in Turkish. */
+  const name = (english: string) => (lang === 'tr' ? (NAMES_TR[english] ?? english) : english)
 
   return {
     lang,
@@ -83,7 +85,8 @@ export function makeI18n(lang: Lang) {
     dec,
     pct,
     scenario,
-    who: (a: Agent) => (a.isPlayer ? t('You') : a.name),
+    name,
+    who: (a: Agent) => (a.isPlayer ? t('You') : name(a.name)),
     teamName: (name: string) => t('Team {0}', name.replace('Team ', '')),
     coach(a: Agent, note: { kind: CoachingKind; k: Kpis }): string {
       const k = note.k
@@ -96,7 +99,7 @@ export function makeI18n(lang: Lang) {
         adherence: [pct(k.adherence)],
         allGood: [],
       }
-      return t(COACH[note.kind][a.isPlayer ? 1 : 0], a.name.split(' ')[0], ...values[note.kind])
+      return t(COACH[note.kind][a.isPlayer ? 1 : 0], name(a.name).split(' ')[0], ...values[note.kind])
     },
     event(e: FloorEvent): string {
       switch (e.kind) {

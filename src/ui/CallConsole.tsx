@@ -271,7 +271,7 @@ function Review() {
 
       <blockquote className="leader-note">
         <p>{t(leaderComment(r))}</p>
-        <footer>{t('{0}, your team leader', leader)}</footer>
+        <footer>{t('{0}, your team leader', i18n.name(leader))}</footer>
       </blockquote>
 
       <h3>{t('Score by skill')}</h3>
