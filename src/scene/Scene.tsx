@@ -314,7 +314,7 @@ function AgentUnit({ agent }: { agent: Agent }) {
 function LeaderUnit({ team }: { team: Team }) {
   const open = useUi((s) => s.open)
   const selected = useUi((s) => s.panel?.kind === 'team' && s.panel.id === team.id)
-  const { t } = useI18n()
+  const { t, name } = useI18n()
   const { hovered, handlers } = usePointer(() => open({ kind: 'team', id: team.id }))
   const upper = useRef<THREE.Group>(null)
   const head = useRef<THREE.Group>(null)
@@ -362,7 +362,7 @@ function LeaderUnit({ team }: { team: Team }) {
         </mesh>
       )}
       <Tag y={2.3}>
-        {team.leader}
+        {name(team.leader)}
         <span className="tag-sub">{t('Team leader, {0}', team.name.replace('Team ', ''))}</span>
       </Tag>
     </group>

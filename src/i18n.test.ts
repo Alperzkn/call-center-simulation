@@ -2,8 +2,8 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { COACH_KEYS, makeI18n } from './i18n'
-import { TR } from './i18n.tr'
-import { QUEUE_MIX, STATE_LABEL } from './sim/engine'
+import { NAMES_TR, TR } from './i18n.tr'
+import { QUEUE_MIX, STATE_LABEL, createWorld } from './sim/engine'
 import { QA_LABELS, SCENARIOS } from './sim/scenarios'
 import { SCENARIOS_TR } from './sim/scenarios.tr'
 
@@ -42,6 +42,15 @@ describe('Turkish UI strings', () => {
     for (const key of ['Service level', 'In queue', 'Longest wait', 'Abandoned', 'Available']) {
       expect(TR[key]).toMatch(/^[ -ÿ]+$/)
     }
+  })
+
+  it('gives every agent and team leader a distinct Turkish name', () => {
+    const w = createWorld()
+    const people = [...w.agents.filter((a) => !a.isPlayer).map((a) => a.name), ...w.teams.map((team) => team.leader)]
+    expect(people.filter((n) => !(n in NAMES_TR))).toEqual([])
+    expect(new Set(people.map((n) => NAMES_TR[n])).size).toBe(people.length)
+    // first names are used alone in coaching notes, so they must be distinct too
+    expect(new Set(people.map((n) => NAMES_TR[n].split(' ')[0])).size).toBe(people.length)
   })
 
   it('formats numbers the Turkish way', () => {

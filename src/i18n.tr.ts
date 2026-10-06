@@ -258,3 +258,28 @@ export const TR: Record<string, string> = {
   'Repeat fault': 'Tekrarlayan arıza',
   'Wrong information given': 'Yanlış bilgi verilmiş',
 }
+
+// Turkish names shown for the simulated agents and team leaders, keyed by their English name.
+export const NAMES_TR: Record<string, string> = {
+  // Team leaders
+  'Priya Raman': 'Pınar Erdem',
+  'Marcus Oyelaran': 'Murat Özkan',
+  'Elena Kovač': 'Elif Korkmaz',
+  // Team Aster
+  'Maya Lindholm': 'Melis Aydın',
+  'Kwame Boateng': 'Kerem Bozkurt',
+  'Chloe Varga': 'Ceren Yıldız',
+  'Arjun Mehta': 'Arda Demir',
+  'Isabel Ferreira': 'İpek Şahin',
+  // Team Birch
+  'Noor Al-Sayed': 'Nur Aksoy',
+  'Liam Gallagher-Reid': 'Levent Güler',
+  'Hana Kobayashi': 'Hande Koç',
+  'Diego Paredes': 'Deniz Polat',
+  // Team Cedar
+  'Femi Adebayo': 'Fatih Arslan',
+  'Sara Lund': 'Selin Kaya',
+  'Viktor Hristov': 'Volkan Öztürk',
+  'Aisha Rahman': 'Ayşe Çelik',
+  'Tom Sinclair': 'Tolga Şimşek',
+}

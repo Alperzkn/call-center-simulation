@@ -209,7 +209,7 @@ function TeamPanel({ id }: { id: string }) {
     <>
       <header className="panel-head">
         <h2>{i18n.teamName(team.name)}</h2>
-        <p>{t('Team leader: {0}. {1} agents.', team.leader, agents.length)}</p>
+        <p>{t('Team leader: {0}. {1} agents.', i18n.name(team.leader), agents.length)}</p>
       </header>
       <div className="tabs team-tabs" role="tablist">
         {world.teams.map((x) => (
@@ -274,11 +274,11 @@ function AgentPanel({ id }: { id: string }) {
   return (
     <>
       <header className="panel-head">
-        <h2>{a.isPlayer ? t('Your performance') : a.name}</h2>
+        <h2>{a.isPlayer ? t('Your performance') : i18n.name(a.name)}</h2>
         <p>
           <button className="link" onClick={() => open({ kind: 'team', id: team.id })}>{i18n.teamName(team.name)}</button>
           {' · '}
-          {t('Team leader: {0}', team.leader)}
+          {t('Team leader: {0}', i18n.name(team.leader))}
         </p>
       </header>
 
@@ -303,7 +303,7 @@ function AgentPanel({ id }: { id: string }) {
 
       <blockquote className={`leader-note leader-${note.tone}`}>
         <p>{i18n.coach(a, note)}</p>
-        <footer>{t('{0}, team leader', team.leader)}</footer>
+        <footer>{t('{0}, team leader', i18n.name(team.leader))}</footer>
       </blockquote>
 
       {a.isPlayer && (
